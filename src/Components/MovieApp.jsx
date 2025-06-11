@@ -68,7 +68,7 @@ export default function MovieApp() {
   return (
     <div className="min-h-screen bg-[#0080ff] text-gray-800 p-6">
       <header className="mb-6 text-center">
-        <h1 className="text-4xl font-bold text-white">🎬 Movie Explorer</h1>
+        <h1 className="text-4xl font-bold text-white">🎬 SaheedMovieApp Explorer</h1>
         <p className="text-lg text-white mt-1">Search movies with filters</p>
       </header>
 
