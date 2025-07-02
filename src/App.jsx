@@ -6,7 +6,12 @@ import MovieApp from "./Components/MovieApp";
 // It imports the MovieApp component and renders it within the App component
 // The App component is then exported for use in the main entry file (main.jsx)
 function App() {
-  return <MovieApp />;
+  return (
+    <>
+      <MovieApp />
+      
+    </>
+  );
 }
 
 export default App;

@@ -1,0 +1,4 @@
+
+* text=auto
+# Set the default behavior, in case users don't have core.autocrlf set.
+# This will normalize the line endings in the repository.

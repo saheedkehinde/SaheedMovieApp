@@ -68,7 +68,7 @@ export default function MovieApp() {
   return (
     <div className="min-h-screen bg-[#0080ff] text-gray-800 p-6">
       <header className="mb-6 text-center">
-        <h1 className="text-4xl font-bold text-white">🎬 SaheedMovieApp Explorer</h1>
+        <h1 className="text-4xl font-bold text-white">🎬 Pheyms<br></br>Movie Explorer</h1>
         <p className="text-lg text-white mt-1">Search movies with filters</p>
       </header>
 
@@ -109,7 +109,7 @@ export default function MovieApp() {
               setReleaseDate(e.target.value);
               setPage(1);
             }}
-            className="border border-gray-300 rounded-md px-3 py-2"
+            className="border border-blue-300 rounded-md px-3 py-2"
           />
 
           <button
@@ -119,73 +119,97 @@ export default function MovieApp() {
               setReleaseDate("");
               setPage(1);
             }}
-            className="bg-red-500 text-blue px-3 py-2 rounded-md hover:bg-red-600"
+            className=" text-[#0080ff] px-3 border-blue-300 py-2 rounded-md"
           >
             Clear Filters
           </button>
         </div>
       </div>
 
-      {loading ? (
-        <p className="text-center text-gray-600">Loading movies...</p>
-      ) : movies.length === 0 ? (
-        <p className="text-center text-gray-500">No movies found.</p>
-      ) : (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {movies.map((movie) => (
-            <div
-              key={movie.id}
-              className="bg-gray-50 rounded-lg shadow hover:shadow-md transition p-4"
-            >
-              <img
-                src={
-                  movie.poster_path
-                    ? `${IMAGE_BASE_URL}${movie.poster_path}`
-                    : "https://via.placeholder.com/500x750?text=No+Image"
-                }
-                alt={movie.title}
-                className="h-60 w-full object-cover rounded mb-3"
-              />
-              <h2 className="text-lg font-semibold mb-1">{movie.title}</h2>
-              <p className="text-sm text-gray-600 mb-1">
-                ⭐ {movie.vote_average} • {movie.release_date}
-              </p>
-              <p className="text-sm text-gray-700 line-clamp-3">
-                {movie.overview || "No description available."}
-              </p>
-            </div>
-          ))}
-        </div>
-      )}
+ {loading ? (
+  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    {Array(8)
+      .fill(0)
+      .map((_, idx) => (
+        <div
+          key={idx}
+          className="bg-gray-200 h-[300px] animate-pulse rounded-lg"
+        />
+      ))}
+  </div>
+   ) : movies.length === 0 ? (
+  <div className="text-center mt-10">
+    <p className="text-[#fff] text-lg font-semibold mb-4">No movies found for your search.</p>
+    <button
+      onClick={() => {
+        setSearchTerm("");
+        setSelectedGenre("");
+        setReleaseDate("");
+        setPage(1);
+      }}
+      className="px-5 py-2 bg-indigo-600 text-[#0080ff] rounded hover:bg-indigo-700 transition"
+    >
+      🔙 Back to Home
+    </button>
+  </div>
+) : (
+  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    {movies.map((movie) => (
+      <div
+        key={movie.id}
+        className="bg-gray-50 rounded-lg shadow hover:shadow-md transition p-4"
+      >
+        <img
+          src={
+            movie.poster_path
+              ? `${IMAGE_BASE_URL}${movie.poster_path}`
+              : "https://via.placeholder.com/500x750?text=No+Image"
+          }
+          alt={movie.title}
+          className="h-60 w-full object-cover rounded mb-3"
+        />
+        <h2 className="text-lg font-semibold mb-1">{movie.title}</h2>
+        <p className="text-sm text-gray-600 mb-1">
+          ⭐ {movie.vote_average} • {movie.release_date}
+        </p>
+        <p className="text-sm text-gray-700 line-clamp-3">
+          {movie.overview || "No description available."}
+        </p>
+      </div>
+    ))}
+  </div>
+)}
 
       {/* Pagination Controls */}
-      <div className="flex justify-center mt-8 gap-4">
-        <button
-          onClick={() => setPage((p) => Math.max(1, p - 1))}
-          disabled={page <= 1}
-          className={`px-4 py-2 rounded ${
-            page <= 1
-              ? "bg-gray-300 text-blue-500 cursor-not-allowed"
-              : "bg-indigo-500 text-blue hover:bg-indigo-600"
-          }`}
-        >
-          Previous
-        </button>
-        <span className="text-sm text-blue-700 mt-2">
-          Page {page} of {totalPages}
-        </span>
-        <button
-          onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-          disabled={page >= totalPages}
-          className={`px-4 py-2 rounded ${
-            page >= totalPages
-              ? "bg-gray-300 text-blue-500 cursor-not-allowed"
-              : "bg-indigo-500 text-blue hover:bg-indigo-600"
-          }`}
-        >
-          Next
-        </button>
-      </div>
+{movies.length > 0 && (
+  <div className="flex justify-center mt-8 gap-4">
+    <button
+      onClick={() => setPage((p) => Math.max(1, p - 1))}
+      disabled={page <= 1}
+      className={`px-4 py-2 rounded ${
+        page <= 1
+          ? "bg-gray-300 text-[#0080ff] cursor-not-allowed"
+          : "bg-indigo-500 text-[#fff] hover:bg-indigo-600"
+      }`}
+    >
+      Previous
+    </button>
+    <span className="text-sm text-gray-700 mt-2">
+      Page {page} of {totalPages}
+    </span>
+    <button
+      onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+      disabled={page >= totalPages}
+      className={`px-4 py-2 rounded ${
+        page >= totalPages
+          ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+          : "bg-indigo-500 text-[#0080ff] hover:bg-indigo-600"
+      }`}
+    >
+      Next
+    </button>
+  </div>
+)}
     </div>
   );
 }
